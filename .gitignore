@@ -1,0 +1,4 @@
+*.o
+*.cpp~
+*.txt~
+*.gitignore~
