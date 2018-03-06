@@ -1,0 +1,14 @@
+#include<iostream>
+#include<iomanip>
+#include<fstream>
+
+
+class Queue{
+ public:
+  int end, front;
+  std::string text;
+  Queue(std::string text);
+  void enQueue(double 
+
+
+}

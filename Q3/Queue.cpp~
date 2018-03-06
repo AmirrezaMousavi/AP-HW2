@@ -1,0 +1,92 @@
+#include"Queue.h"
+#include<iostream>
+#include<iomanip>
+#include<fstream>
+#include<string>
+
+
+Queue::Queue(std::string text){
+  size = 0;
+  front = 0;
+  Text = text;
+  makeQueue();
+  end = size;
+   
+
+}
+
+     
+void Queue::makeQueue(){
+  std:: string s{};
+  int num{};
+  std::ifstream ifile{Text};
+  if (ifile.is_open())    
+    ifile >> length >> s;
+  for(size_t i{}; i < s.length(); i++){
+    if(s[i] == ',')
+      num++;
+	}
+  if(length >= num+1){    
+  q = {new double[length]};
+  int c{};
+  int c1{};
+  int count{};
+  double toDouble{};
+  std::string str{};
+  for(size_t i{}; i < s.length(); i++){
+    if(s[i] == ','){
+      c1 = i;
+      str = s.substr(c,c1-c);
+      toDouble = std::stod(str);
+      q[count] = toDouble;
+      size++;
+      count++;
+      c = c1 + 1;
+    }
+  }
+  str = s.substr(c,s.length()-c);
+  toDouble = std::stod(str);
+  q[count] = toDouble;
+  count++;
+  size++;
+  }
+  else
+    std::cout << "it not possible creating a Queue" << std::endl;
+
+}
+void Queue::displayQueue(){
+  for(int i{}; i < length; i++){
+    std::cout << q[i] << '\t';
+  }
+  std::cout << std::endl;
+}
+
+bool Queue::isEmpty()
+{return size == 0;}
+
+void Queue::enQueue(double x){
+  if(size == length)
+    std::cout << "the Queue is full" << std::endl;
+  else{
+    q[end] = x;
+    end = (end+1) % length;
+    size++;
+  }
+}
+double Queue::deQueue(){
+  if(isEmpty()){
+    std::cout << "the Queue is empty" <<std::endl;
+    return 0;
+  }
+  else{
+    double inst{q[front]};
+    q[front] = 0;
+    front = (front+1) % length;
+    size--;
+    return inst;
+  }
+}
+Queue::~Queue(){
+  delete[]q;
+  
+}
